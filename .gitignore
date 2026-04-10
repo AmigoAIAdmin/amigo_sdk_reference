@@ -1,1 +1,33 @@
+# Xcode user-specific data
+xcuserdata/
+*.xcuserdatad/
+
+# Xcode workspace settings (may contain local paths)
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+# macOS
 .DS_Store
+.idea/*
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Credentials and secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials.json
+service_account*.json
+*secret*.json
+*secrets*.yaml
+*secrets*.yml
+
+# API keys / config with sensitive data
+Config.xcconfig
+*.xcconfig
