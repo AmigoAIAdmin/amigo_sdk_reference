@@ -30,4 +30,3 @@ service_account*.json
 
 # API keys / config with sensitive data
 Config.xcconfig
-*.xcconfig

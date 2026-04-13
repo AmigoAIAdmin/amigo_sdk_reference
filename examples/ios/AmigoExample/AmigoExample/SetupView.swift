@@ -4,7 +4,7 @@ import AmigoFaceSwapSDK
 struct SetupView: View {
     @State private var isReady = false
     @State private var progress: Float = 0
-    @State private var statusText = "Checking models…"
+    @State private var statusText = "Initializing…"
     @State private var errorMessage: String?
 
     var body: some View {
@@ -52,19 +52,20 @@ struct SetupView: View {
 
     @MainActor
     private func setup() async {
-        do {
-            statusText = "Downloading models…"
-            try await AmigoFaceSwap.downloadModelsIfNeeded { downloadProgress in
-                DispatchQueue.main.async {
-                    self.progress = downloadProgress * 0.8
-                }
-            }
+        let apiKey = Secrets.amigoAPIKey
+        guard !apiKey.isEmpty, apiKey != "your-api-key-here" else {
+            errorMessage = "Set your API key in Secrets.swift"
+            return
+        }
 
+        do {
             statusText = "Initializing…"
-            progress = 0.8
-            try await AmigoFaceSwap.initialize(apiKey: "demo") { initProgress in
+            try await AmigoFaceSwap.initialize(
+                apiKey: apiKey
+            ) { downloadProgress in
                 DispatchQueue.main.async {
-                    self.progress = 0.8 + initProgress * 0.2
+                    self.statusText = "Downloading models…"
+                    self.progress = downloadProgress * 0.9
                 }
             }
 

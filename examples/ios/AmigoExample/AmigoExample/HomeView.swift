@@ -17,7 +17,6 @@ struct HomeView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .padding(.horizontal, 40)
-
                 NavigationLink {
                     LiveFaceSwapView()
                 } label: {

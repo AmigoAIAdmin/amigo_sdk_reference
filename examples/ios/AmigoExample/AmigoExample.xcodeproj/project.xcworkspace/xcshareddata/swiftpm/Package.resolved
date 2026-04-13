@@ -1,0 +1,15 @@
+{
+  "originHash" : "32037d9f71bf1a9b5a353fa28861ffb5dab2c61b55891f94e309c836205e0ce5",
+  "pins" : [
+    {
+      "identity" : "amigosdk_ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AmigoAIAdmin/AmigoSDK_iOS.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e26ac3992ff2ba660bbf9022f69f8ac86464011a"
+      }
+    }
+  ],
+  "version" : 3
+}
