@@ -14,6 +14,7 @@
 		A10005 /* AmigoFaceSwapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = A60001 /* AmigoFaceSwapSDK */; };
 		A10006 /* LiveFaceSwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20005 /* LiveFaceSwapView.swift */; };
 		D22E2DD22F8A0AEF006EE9CA /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E2DD12F8A0AEF006EE9CA /* SetupView.swift */; };
+		D22E2DD62F8CB944006EE9CA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E2DD52F8CB944006EE9CA /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		A20006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20010 /* AmigoExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmigoExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22E2DD12F8A0AEF006EE9CA /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		D22E2DD52F8CB944006EE9CA /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 		A40002 /* AmigoExample */ = {
 			isa = PBXGroup;
 			children = (
+				D22E2DD52F8CB944006EE9CA /* Secrets.swift */,
 				D22E2DD12F8A0AEF006EE9CA /* SetupView.swift */,
 				A20001 /* AmigoExampleApp.swift */,
 				A20002 /* HomeView.swift */,
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10001 /* AmigoExampleApp.swift in Sources */,
+				D22E2DD62F8CB944006EE9CA /* Secrets.swift in Sources */,
 				A10002 /* HomeView.swift in Sources */,
 				A10003 /* FaceSwapView.swift in Sources */,
 				D22E2DD22F8A0AEF006EE9CA /* SetupView.swift in Sources */,
