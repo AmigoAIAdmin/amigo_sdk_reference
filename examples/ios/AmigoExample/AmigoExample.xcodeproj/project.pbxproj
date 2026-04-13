@@ -115,7 +115,7 @@
 			);
 			mainGroup = A40001;
 			packageReferences = (
-				A60002 /* XCLocalSwiftPackageReference "../../../../amigo_sdk/ios/AmigoFaceSwapSDK" */,
+				A60002 /* XCRemoteSwiftPackageReference "AmigoSDK_iOS" */,
 			);
 			productRefGroup = A40003 /* Products */;
 			projectDirPath = "";
@@ -279,16 +279,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		A60002 /* XCLocalSwiftPackageReference "../../../../amigo_sdk/ios/AmigoFaceSwapSDK" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../../amigo_sdk/ios/AmigoFaceSwapSDK;
+/* Begin XCRemoteSwiftPackageReference section */
+		A60002 /* XCRemoteSwiftPackageReference "AmigoSDK_iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AmigoAIAdmin/AmigoSDK_iOS.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		A60001 /* AmigoFaceSwapSDK */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A60002 /* XCRemoteSwiftPackageReference "AmigoSDK_iOS" */;
 			productName = AmigoFaceSwapSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
