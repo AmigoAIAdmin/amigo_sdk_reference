@@ -4,9 +4,9 @@
 
 Amigo is a production-grade face swap SDK that runs entirely on-device. No server round-trips, no cloud processing, no privacy concerns. Drop it into your app and ship real-time face swap in minutes.
 
-[![Platform](https://img.shields.io/badge/platform-iOS%2016%2B%20%7C%20Android%20API%2026%2B-blue)](#platform-support)
-[![Swift](https://img.shields.io/badge/Swift-5.9%2B-orange)](#ios-sdk)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9%2B-purple)](#android-sdk)
+[![Platform](https://img.shields.io/badge/platform-iOS%2016%2B-blue)](#platform-support)
+[![Android](https://img.shields.io/badge/Android-Coming%20Soon-lightgrey)](#android--coming-soon)
+[![Swift](https://img.shields.io/badge/Swift-5.9%2B-orange)](#quick-start--ios)
 [![License](https://img.shields.io/badge/license-Commercial-green)](#license)
 
 ---
@@ -86,46 +86,11 @@ present(vc, animated: true)
 
 ---
 
-## Quick Start — Android
+## Android — Coming Soon
 
-### Install via Gradle
+The Android SDK is under active development. Stay tuned for the release.
 
-```kotlin
-// settings.gradle.kts
-dependencyResolutionManagement {
-    repositories {
-        maven { url = uri("https://maven.amigoai.io/releases") }
-    }
-}
-
-// build.gradle.kts
-dependencies {
-    implementation("ai.amigo:faceswap-sdk:1.0.0")
-}
-```
-
-### Integration (Jetpack Compose)
-
-```kotlin
-import ai.amigo.sdk.AmigoFaceSwap
-import ai.amigo.sdk.camera.AmigoLiveCameraView
-
-// 1. Initialize
-AmigoFaceSwap.initialize(context, apiKey = "your-api-key")
-
-// 2. Enroll a face
-val latent = AmigoFaceSwap.enrollFace(sourceBitmap)
-
-// 3. Live camera face swap
-AmigoLiveCameraView(targetLatent = latent)
-```
-
-### Static Image Swap
-
-```kotlin
-val latent = AmigoFaceSwap.enrollFace(sourceBitmap)
-val result = AmigoFaceSwap.swapFace(targetBitmap, latent)
-```
+Interested in early access? Contact us at [support@amigoai.io](mailto:support@amigoai.io).
 
 ---
 
@@ -164,7 +129,7 @@ This repository contains fully working example apps:
 | Platform | Location | Features |
 |---|---|---|
 | **iOS** | [`examples/ios/AmigoExample`](examples/ios/) | Static swap, live camera, photo picker |
-| **Android** | [`examples/android/AmigoExample`](examples/android/) | Static swap, live camera, photo picker |
+| **Android** | Coming soon | — |
 
 Each example includes step-by-step setup instructions. See the [iOS Runbook](examples/ios/README.md) to get started.
 
@@ -181,17 +146,6 @@ Each example includes step-by-step setup instructions. See the [iOS Runbook](exa
 | `swapFace(in:using:lipMode:)` | Swap face in a static image |
 | `processFrame(_:using:lipMode:)` | Process a single CVPixelBuffer (for custom pipelines) |
 | `clearModelCache()` | Force re-download on next init |
-
-### Android — `AmigoFaceSwap`
-
-| Method | Description |
-|---|---|
-| `initialize(context, apiKey)` | Initialize SDK and download models |
-| `downloadModelsIfNeeded(context)` | Pre-download models from CDN |
-| `enrollFace(bitmap)` | Extract face embedding from Bitmap |
-| `swapFace(bitmap, latent, lipMode)` | Swap face in a static image |
-| `processFrame(bitmap, latent, lipMode)` | Process a single Bitmap (for custom pipelines) |
-| `release()` | Clean up resources |
 
 ### Shared Types
 
@@ -211,10 +165,12 @@ Each example includes step-by-step setup instructions. See the [iOS Runbook](exa
 
 ## Get an API Key
 
-1. Sign up at [sdk.amigoai.io](https://sdk.amigoai.io)
+1. Visit [sdk.amigoai.io](https://sdk.amigoai.io) and sign up for an account
 2. Create a project in the dashboard
 3. Copy your API key
 4. Start building
+
+Need help? Contact us at [support@amigoai.io](mailto:support@amigoai.io).
 
 ---
 
@@ -232,7 +188,7 @@ Each example includes step-by-step setup instructions. See the [iOS Runbook](exa
 
 The Amigo Face Swap SDK is commercially licensed. See [LICENSE](LICENSE.md) for details.
 
-Contact [sdk@amigoai.io](mailto:sdk@amigoai.io) for enterprise licensing.
+Contact [support@amigoai.io](mailto:support@amigoai.io) for enterprise licensing.
 
 ---
 

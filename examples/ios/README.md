@@ -86,5 +86,5 @@ AmigoExample/
 
 ## Next Steps
 
-- Read the full [SDK Documentation](../../../documents/ios/SDK_DOCUMENTATION.md) for API reference and advanced usage.
-- Explore the [main repository README](../../../README.md) for Android examples and more.
+- Read the full [SDK Documentation](../../documents/ios/SDK_DOCUMENTATION.md) for API reference and advanced usage.
+- Explore the [main repository README](../../README.md) for more.
