@@ -44,7 +44,7 @@ enum Secrets {
 
 1. Select your target device (physical iPhone recommended for camera features).
 2. Press **⌘R** to build and run.
-3. On first launch, the SDK downloads ML models (~50 MB). A progress bar is shown during download.
+3. On first launch, the SDK downloads required models. A progress bar is shown during download.
 
 ## What the Example App Demonstrates
 
@@ -52,7 +52,7 @@ enum Secrets {
 
 1. Tap **"Swap Face on Image"** from the home screen.
 2. Select a **source face** (the identity to apply) and a **target image** (the image whose face will be replaced).
-3. Tap **"Swap Face"** — the SDK runs face enrollment + inference on-device and displays the result.
+3. Tap **"Swap Face"** — the SDK processes everything on-device and displays the result.
 
 ### Real-Time Live Face Swap
 

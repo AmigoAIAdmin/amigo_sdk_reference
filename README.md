@@ -19,11 +19,11 @@ Amigo is a production-grade face swap SDK that runs entirely on-device. No serve
 | **Privacy** | Images never leave the device | Images uploaded to third-party servers |
 | **Offline** | Works without internet (after initial setup) | Requires constant connectivity |
 | **Cost** | Per-session billing, unlimited frames | Per-image or per-minute billing |
-| **Quality** | 512×512 CoreML / 256×256 TFLite neural pipeline | Varies |
+| **Quality** | 512×512 CoreML neural pipeline | Varies |
 
 ## Features
 
-- **Real-time face swap** — 30 fps live camera processing with CoreML (iOS) and TFLite (Android)
+- **Real-time face swap** — 30 fps live camera processing with CoreML + Metal
 - **Static image face swap** — High-quality single-image processing
 - **On-device ML inference** — Zero network latency, complete user privacy
 - **Face enrollment** — Extract reusable 512-dim face embeddings from any photo
@@ -31,16 +31,15 @@ Amigo is a production-grade face swap SDK that runs entirely on-device. No serve
 - **Background replacement** — Real-time person segmentation with custom backgrounds
 - **SwiftUI & Jetpack Compose** — Native UI components for modern app architectures
 - **UIKit & Android Views** — Full support for traditional UI frameworks
-- **Per-frame API** — Direct `CVPixelBuffer` / `Bitmap` processing for WebRTC, video playback, and custom pipelines
-- **Encrypted model delivery** — AES-encrypted models downloaded from CDN, cached locally
+- **Per-frame API** — Direct `CVPixelBuffer` processing for WebRTC, video playback, and custom pipelines
 - **Hot-swappable faces** — Switch between enrolled face identities at runtime with zero latency
 
 ## Platform Support
 
-| Platform | ML Runtime | Input Resolution | UI Components |
+| Platform | ML Runtime | Resolution | UI Components |
 |---|---|---|---|
 | **iOS 16+** | CoreML + Metal | 512×512 | SwiftUI, UIKit |
-| **Android API 26+** | TensorFlow Lite + GPU | 256×256 | Jetpack Compose, Android Views |
+| **Android API 26+** | TensorFlow Lite + GPU | 256×256 | Jetpack Compose, Android Views (coming soon) |
 
 ---
 
@@ -97,26 +96,22 @@ Interested in early access? Contact us at [support@amigoai.io](mailto:support@am
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────┐
-│                  Your App                        │
-│  ┌───────────────────────────────────────────┐  │
-│  │           Amigo Face Swap SDK             │  │
-│  │                                           │  │
-│  │  ┌─────────┐  ┌──────────┐  ┌─────────┐  │  │
-│  │  │  Face   │  │  Face    │  │  Live   │  │  │
-│  │  │Enrollment│  │  Swap   │  │ Camera  │  │  │
-│  │  │         │  │ Engine   │  │ Session │  │  │
-│  │  └────┬────┘  └────┬─────┘  └────┬────┘  │  │
-│  │       │            │              │       │  │
-│  │  ┌────▼────────────▼──────────────▼────┐  │  │
-│  │  │     CoreML / TFLite Runtime         │  │  │
-│  │  │     (Metal GPU / GPU Delegate)      │  │  │
-│  │  └────────────────────────────────────┘  │  │
-│  └───────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────┐
+│             Your App                 │
+│  ┌────────────────────────────────┐  │
+│  │      Amigo Face Swap SDK      │  │
+│  │                                │  │
+│  │  Face Enrollment               │  │
+│  │  Face Swap Engine              │  │
+│  │  Live Camera Session           │  │
+│  │                                │  │
+│  │  ┌──────────────────────────┐  │  │
+│  │  │  CoreML / TFLite Runtime  │  │  │
+│  │  │   (Metal GPU Accelerated)│  │  │
+│  │  └──────────────────────────┘  │  │
+│  └────────────────────────────────┘  │
+└──────────────────────────────────────┘
 ```
-
-**Pipeline:** Face detection → Landmark extraction → Affine warp → Neural network inference → Inverse warp → Mask blend → Output
 
 All processing happens on-device. The only network calls are API key validation (once per session) and model downloads (once, then cached).
 
@@ -142,7 +137,7 @@ Each example includes step-by-step setup instructions. See the [iOS Runbook](exa
 | Method | Description |
 |---|---|
 | `initialize(apiKey:onProgress:)` | Initialize SDK and download models |
-| `enrollFace(from:)` | Extract face embedding from UIImage |
+| `enrollFace(from:)` | Extract 512-dim face embedding from UIImage |
 | `swapFace(in:using:lipMode:)` | Swap face in a static image |
 | `processFrame(_:using:lipMode:)` | Process a single CVPixelBuffer (for custom pipelines) |
 | `clearModelCache()` | Force re-download on next init |
@@ -160,7 +155,7 @@ Each example includes step-by-step setup instructions. See the [iOS Runbook](exa
 
 - **Per-session pricing** — Each `initialize()` call = 1 session. All subsequent operations within that session are free.
 - **No per-frame charges** — Run the live camera for hours with zero additional cost.
-- **Free model caching** — Models download once and are cached locally.
+- **Free model caching** — Models are downloaded once and cached locally.
 - **Dashboard** — Monitor usage at [sdk.amigoai.io/dashboard](https://sdk.amigoai.io/dashboard).
 
 ## Get an API Key

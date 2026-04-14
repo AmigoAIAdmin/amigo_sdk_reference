@@ -35,14 +35,14 @@ Add the SDK via Swift Package Manager:
    ```
    https://github.com/AmigoAIAdmin/AmigoSDK_iOS.git
    ```
-3. Select version **1.0.2** or later.
+3. Set the version rule to **Branch: main**.
 4. Add `AmigoFaceSwapSDK` to your target.
 
 Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/AmigoAIAdmin/AmigoSDK_iOS.git", from: "1.0.2")
+    .package(url: "https://github.com/AmigoAIAdmin/AmigoSDK_iOS.git", branch: "main")
 ]
 ```
 
@@ -90,7 +90,7 @@ Initialize the SDK and create a billable session. Must be called before any othe
 | `apiKey` | `String` | Your API key from [sdk.amigoai.io/dashboard](https://sdk.amigoai.io/dashboard) |
 | `onProgress` | `((Float) -> Void)?` | Download progress callback (0.0 → 1.0). Only called if models need downloading. |
 
-**Throws:** `AmigoError.invalidAPIKey`, `.revokedAPIKey`, `.quotaExceeded`, `.serverError`, `.modelDownloadFailed`, `.modelDecryptionFailed`, `.modelLoadFailed`, `.networkRequired`
+**Throws:** `AmigoError.invalidAPIKey`, `.revokedAPIKey`, `.quotaExceeded`, `.serverError`, `.modelDownloadFailed`, `.modelLoadFailed`, `.networkRequired`
 
 **Important:** Each call to `initialize` creates one billable session. Do not call it repeatedly — call once at app launch, then use the SDK freely.
 
@@ -102,7 +102,7 @@ Initialize the SDK and create a billable session. Must be called before any othe
 public static func enrollFace(from image: UIImage) async throws -> FaceLatent
 ```
 
-Extract a face embedding from a photo. The image should contain one clearly visible, forward-facing face.
+Extract a 512-dim face embedding from a photo. The image should contain one clearly visible, forward-facing face.
 
 | Parameter | Type | Description |
 |---|---|---|
@@ -158,7 +158,7 @@ Process a single video frame synchronously. Designed for custom pipelines — We
 
 **Returns:** A `CIImage` with the face swapped, or `nil` if no face was detected (render the original frame in that case).
 
-**Threading:** Call from a serial background queue. Synchronous and optimized for sustained 30 fps.
+**Threading:** Call from a serial background queue. Optimized for sustained 30 fps.
 
 ---
 
@@ -168,7 +168,7 @@ Process a single video frame synchronously. Designed for custom pipelines — We
 public static func clearModelCache()
 ```
 
-Delete all cached models, forcing a re-download on next `initialize()`. Useful for debugging or if models appear corrupted.
+Delete all cached models, forcing a re-download on next `initialize()`. Useful if the SDK is not working as expected.
 
 ---
 
@@ -215,11 +215,10 @@ All errors thrown by the SDK.
 | `.quotaExceeded(limit:used:)` | Monthly session quota exceeded |
 | `.noFaceDetected` | No face found in the image |
 | `.modelLoadFailed` | CoreML model failed to load |
-| `.modelDownloadFailed(String)` | CDN download error |
-| `.modelDecryptionFailed` | Model decryption/extraction failed |
+| `.modelDownloadFailed(String)` | Model download error |
 | `.networkRequired` | No cached models and no network |
-| `.serverError(String)` | Backend HTTP error |
-| `.inferenceFailure(String)` | Unexpected inference result |
+| `.serverError(String)` | Server error |
+| `.inferenceFailure(String)` | Processing error |
 | `.invalidInput(String)` | Invalid image or data |
 
 All cases conform to `LocalizedError` with human-readable `errorDescription`.
@@ -304,7 +303,7 @@ Access `vc.session` to change settings at runtime (lip mode, target face, backgr
 The underlying camera session powering both `AmigoLiveCameraView` and `AmigoLiveViewController`. Use directly when you need full control over the camera lifecycle.
 
 ```swift
-public final class AmigoLiveSession: NSObject {
+public final class AmigoLiveSession {
     public let previewView: UIView
     public var targetLatent: FaceLatent       // Switch faces at runtime
     public var lipMode: LipMode               // Default: .innerLips
@@ -442,7 +441,7 @@ session.start()
 session.backgroundImage = nil
 ```
 
-Background replacement uses Vision person segmentation and works with the front camera.
+Background replacement works with the front camera.
 
 ### Pre-Computed Embeddings
 
@@ -463,7 +462,7 @@ if let latent = FaceLatent(embedding: embedding) {
 
 - Each call to `AmigoFaceSwap.initialize(apiKey:)` creates **one billable session**.
 - After initialization, all subsequent API calls (`enrollFace`, `swapFace`, `processFrame`, live camera) are **free** — no per-frame or per-image charges.
-- Model downloads only occur when the model version changes. Cached models are reused automatically.
+- Models are downloaded once and cached locally. Re-downloads only occur when updates are available.
 - Monitor usage at [sdk.amigoai.io/dashboard](https://sdk.amigoai.io/dashboard).
 
 ## Requirements
