@@ -187,6 +187,28 @@ Contact [support@amigoai.io](mailto:support@amigoai.io) for enterprise licensing
 
 ---
 
+## How Amigo Compares
+
+The face-swap landscape splits into three categories: open-source research stacks ([inswapper_128](https://github.com/deepinsight/insightface) / InsightFace and derivatives like [Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam), Roop, Rope) and cloud-hosted generative services ([Higgsfield](https://higgsfield.ai), Akool, Vidnoz, etc.). Amigo is a different shape from both:
+
+| | **inswapper_128** (InsightFace) | **Deep-Live-Cam** | **Cloud services** (Higgsfield, etc.) | **Amigo SDK** |
+|---|---|---|---|---|
+| **Execution model** | Local inference, self-hosted | Local inference, desktop app | Offline batch jobs — upload → render queue → download | **Live real-time**, on-device, per-frame |
+| **Latency** | Depends on your GPU | Real-time only on NVIDIA discrete GPU | Seconds to minutes per asset + network round-trip | **30 fps on-device**, millisecond per-frame |
+| **Output resolution** | 128×128 (needs GFPGAN/CodeFormer restorer to look HD) | 128×128 (uses inswapper_128 under the hood) | Varies (typically high-res one-shot renders) | **512×512 iOS · 256×256 Android** |
+| **Deployment target** | Desktop / server, Python | Desktop with discrete GPU, Python | Third-party cloud | **iOS 16+ and Android API 26+**, native |
+| **Runtime** | ONNX Runtime | ONNX Runtime + OpenCV + restorer | Their servers | CoreML + Metal (iOS), TFLite + GPU (Android) |
+| **Developer experience** | Raw ONNX model — you build detection, alignment, blending, camera, UI, hosting yourself | Desktop Python app — not a library, no mobile bindings, no public API | REST API — you handle async job state, polling, retries, error UX | **3-line integration.** Drop-in SwiftUI / Jetpack Compose view, enrollment API, per-frame API, UIKit + async/await |
+| **Cost model** | "Free" model + your own GPU + bandwidth bill if server-hosted; license violation if shipped client-side | Free if your users have NVIDIA GPUs | **Per-generation credits** — every image/video costs you money; viral features = viral bills | **Per-session flat pricing.** One `initialize()` = unlimited frames, swaps, and live-camera minutes |
+| **Scalability** | Linear cost per user × frame on your GPU cluster; cloud GPU becomes your product ceiling | Doesn't — gated on user hardware | Exposed to their render queue, capacity, pricing changes, and uptime | **Scales with users' devices, not your servers.** 10 or 10M users → $0 per-frame infra cost |
+| **Privacy** | You host it, you own the data path | Local only | **User photos uploaded to third-party servers** — GDPR / CCPA / minor-user compliance burden | **Images never leave the device.** No cloud inference, no uploads, no data-residency review |
+| **Offline** | N/A (self-hosted) | Yes | No — requires constant connectivity | **Yes** — works after initial model download |
+| **Licensing** | Non-commercial / research only — shipping it is a license violation | Inherits inswapper_128's non-commercial restriction | Commercial, per their TOS | **Commercial SDK** with SLA |
+
+**TL;DR** — inswapper_128 and Deep-Live-Cam are research tools, not shippable mobile products. Cloud services are built for creators rendering finished assets, not for apps responding to user input in real time. Amigo is a mobile-first, commercially licensed SDK for interactive, live, in-app face-swap experiences — with zero per-frame infra cost.
+
+---
+
 <p align="center">
 Built by <a href="https://amigoai.io">Amigo AI</a>
 </p>
