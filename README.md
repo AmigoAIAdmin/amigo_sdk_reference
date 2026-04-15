@@ -4,7 +4,7 @@
 
 AmigoSDK is a production-grade face swap SDK that runs entirely on-device. No server round-trips, no cloud processing, no privacy concerns. Drop it into your app and ship real-time face swap in minutes.
 
-> **💡 Not a developer? or Just want to try it?** Try our consumer app — experience real-time face swap without writing any code at [Amigo AI](https://www.amigoai.io/download)
+> **💡 Not a developer? or Just want to try it?** Join 500,000+ users already experiencing real-time face swap in our consumer app [Amigo AI](https://www.amigoai.io/download) — no code required. 
 
 [![Platform](https://img.shields.io/badge/platform-iOS%2016%2B-blue)](#platform-support)
 [![Android](https://img.shields.io/badge/Android-Coming%20Soon-lightgrey)](#android--coming-soon)
