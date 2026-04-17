@@ -10,8 +10,12 @@ AmigoSDK is a production-grade face swap SDK that runs entirely on-device. No se
 [![Android](https://img.shields.io/badge/Android-Coming%20Soon-lightgrey)](#android--coming-soon)
 [![Swift](https://img.shields.io/badge/Swift-5.9%2B-orange)](#quick-start--ios)
 [![License](https://img.shields.io/badge/license-Commercial-green)](#license)
-
 ---
+
+<p align="center">
+  <img src="documents/ios/0417_hero.gif" width="160" alt="Hero demo">
+</p>
+
 
 ## Why Amigo?
 
